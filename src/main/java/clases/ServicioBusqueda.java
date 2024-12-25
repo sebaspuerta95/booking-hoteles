@@ -87,13 +87,23 @@ public class ServicioBusqueda {
     }
 
     public List<Habitacion> confirmarHabitaciones(Hotel hotel, String fechaInicioAlojamiento,String fechaFinalAlojamiento, int numeroDeAdultos, int numeroDeNiños, int numeroDeHabitacionesAReservar) {
+
+        List<Habitacion> resultadosHabitaciones = new ArrayList<>();
         double precioFinalConDescuento;
+
         System.out.println("Estas son las habitaciones disponibles en el hotel " + hotel.getNombre());
+
         for (Habitacion habitacion : hotel.getHabitaciones()) {
+            resultadosHabitaciones.add(habitacion);
+
             precioFinalConDescuento = calcularDescuento(habitacion.getPrecio(), fechaInicioAlojamiento, fechaFinalAlojamiento, numeroDeHabitacionesAReservar);
-            System.out.println("Tipo: " + habitacion.getTipo() + " | Características: " + habitacion.getCaracteristicas() + " | Precio por habitación: $" + habitacion.getPrecio() + " | Precio total: $" + precioFinalConDescuento);
+            System.out.println("Tipo: " + habitacion.getTipo()
+                    + " | Características: " + habitacion.getCaracteristicas()
+                    + " | Precio por habitación: $" + habitacion.getPrecio()
+                    + " | Precio total: $" + precioFinalConDescuento);
         }
-        return null;
+
+        return resultadosHabitaciones;
     }
 
 }

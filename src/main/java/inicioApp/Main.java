@@ -114,8 +114,31 @@ public class Main {
             }
         }
 
-        // Validaciones para elegir habitación.
+        if (opcionesHabitac.isEmpty()) {
+            System.out.println("No se encontraron habitaciones disponibles para la fecha seleccionada.");
+        } else {
+            System.out.println("\nSeleccione el número de la habitación que desea reservar:");
+            for (int i = 0; i < opcionesHabitac.size(); i++) {
+                Habitacion habitacion = opcionesHabitac.get(i);
+                System.out.println((i + 1) + ". " + habitacion.getTipo());
+            }
+
+            try {
+                int seleccion = scanner.nextInt();
+                scanner.nextLine();
+                if (seleccion < 1 || seleccion > opcionesHabitac.size()) {
+                    System.out.println("Selección inválida, intente de nuevo.");
+                } else {
+                    habitacSeleccionada = opcionesHabitac.get(seleccion - 1);
+
+                }
+            } catch (Exception e) {
+                System.out.println("Entrada inválida. Inténtelo de nuevo.");
+                scanner.nextLine();
+            }
+        }
+
+        // Selección de reserva y confirmación.
 
     }
-
 }
