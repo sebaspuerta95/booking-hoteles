@@ -31,7 +31,7 @@ public class Main {
                     buscarYReservarHotel(scanner);
                     break;
                 case 2 :
-                    //actualizarReserva(Scanner); -> Método por crear.
+                    actualizarReserva(scanner);
                     break;
                 case 3 :
                     System.out.println("Gracias por usar Booking Hoteles. ¡Hasta pronto!");
@@ -164,4 +164,16 @@ public class Main {
         hotelSeleccionado.generarReserva(nuevoCliente, habitacSeleccionada, fechaInicioAlojamiento, fechaFinalAlojamiento, horaAproxLlegada);
 
     }
+
+    private static void actualizarReserva(Scanner scanner) {
+        System.out.println("Para actualizar tu reserva actual, primero debemos validar tu identidad. \nIngresa tu email:");
+        String email = scanner.next();
+        System.out.println("Ingresa tu fecha de nacimiento (YYYY-MM-DD):");
+        String fechaNacimiento = scanner.next();
+
+        for (Hotel hotel : hoteles) {
+            hotel.actualizarReserva(email, fechaNacimiento);
+        }
+    }
+
 }

@@ -15,14 +15,6 @@ public class Habitacion {
         this.disponibilidad = disponibilidad;
 
     }
-    /**
-     public double calcularPrecioTotal(int diasEstadia, double descuentoOAumento, int numeroDeHabitaciones) {
-
-     double precioBase = precio * diasEstadia * numeroDeHabitaciones;
-     double ajuste = precioBase * (descuentoOAumento / 100);
-     return precioBase + ajuste;
-
-     } */
 
     public String getTipo() {
         return tipo;
