@@ -7,14 +7,12 @@ import java.util.List;
 
 public class ServicioBusqueda {
 
-    BaseDeDatos hoteles = new BaseDeDatos();
-
-    public List<Hotel> buscarHoteles(String ciudad, String tipoAlojamiento, String fechaInicioAlojamiento, String fechaFinalAlojamiento, int numeroDeAdultos, int numeroDeNiños, int numeroDeHabitacionesAReservar) {
+    public List<Hotel> buscarHoteles(List<Hotel> hoteles, String ciudad, String tipoAlojamiento, String fechaInicioAlojamiento, String fechaFinalAlojamiento, int numeroDeAdultos, int numeroDeNiños, int numeroDeHabitacionesAReservar) {
 
         // 1. Comparar la ciudad y el tipo de alojamiento con los datos de los hoteles.
         List<Hotel> resultados = new ArrayList<>();
-        for (Hotel hotel : hoteles.getHoteles()) {
-            if (hotel.getCiudad().equalsIgnoreCase(ciudad) && hotel.getTipoAlojamiento().equalsIgnoreCase(tipoAlojamiento)) {
+        for (Hotel hotel : hoteles) {
+            if (hotel.getCiudad().equalsIgnoreCase(ciudad) || hotel.getTipoAlojamiento().equalsIgnoreCase(tipoAlojamiento)) {
                 resultados.add(hotel);
             }
         }
@@ -43,7 +41,9 @@ public class ServicioBusqueda {
                 double precioHabitacion = habitacionMasBarata.getPrecio();
                 double precioFinalConDescuento = calcularDescuento(precioHabitacion, fechaInicioAlojamiento, fechaFinalAlojamiento, numeroDeHabitacionesAReservar);
 
-                System.out.println("Nombre del hotel: " + hotel.getNombre());
+                System.out.println("Nombre del establecimiento: " + hotel.getNombre());
+                System.out.println("Tipo de alojamiento: " + hotel.getTipoAlojamiento());
+                System.out.println("Ciudad del establecimiento: " + hotel.getCiudad());
                 System.out.println("Puntuación: " + hotel.getPuntuacion());
                 System.out.println("Precio por habitación: $" + precioHabitacion);
                 System.out.println("Precio total de la estadía: $" + precioFinalConDescuento);

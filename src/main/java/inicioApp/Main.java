@@ -1,5 +1,6 @@
 package src.main.java.inicioApp;
 
+import src.main.java.clases.BaseDeDatos;
 import src.main.java.clases.Hotel;
 import src.main.java.clases.Habitacion;
 import src.main.java.clases.ServicioBusqueda;
@@ -10,6 +11,8 @@ public class Main {
 
     static ServicioBusqueda nuevaBusqueda = new ServicioBusqueda();
     static Scanner scanner = new Scanner(System.in);
+    static BaseDeDatos listaHoteles = new BaseDeDatos();
+    private static List<Hotel> hoteles = listaHoteles.getHoteles();
 
     public static void main(String[] args) {
 
@@ -67,6 +70,7 @@ public class Main {
         scanner.nextLine();
 
         List<Hotel> opciones = nuevaBusqueda.buscarHoteles(
+                hoteles,
                 ciudad,
                 tipoAlojamiento,
                 fechaInicioAlojamiento,
