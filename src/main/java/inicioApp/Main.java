@@ -1,6 +1,7 @@
 package src.main.java.inicioApp;
 
 import src.main.java.clases.Hotel;
+import src.main.java.clases.Habitacion;
 import src.main.java.clases.ServicioBusqueda;
 import java.util.List;
 import java.util.Scanner;
@@ -12,8 +13,10 @@ public class Main {
 
     public static void main(String[] args) {
 
+        boolean salir = false;
+
         System.out.println("Bienvenido a Booking Hoteles!");
-        while (true) {
+        while (!salir) {
             System.out.println("\nSeleccione una opción:");
             System.out.println("1. Buscar hoteles y reservar.");
             System.out.println("2. Actualizar reserva");
@@ -27,11 +30,11 @@ public class Main {
                     buscarYReservarHotel(scanner);
                     break;
                 case 2 :
-                    //reservationService.updateReservation(scanner);
+                    //actualizarReserva(Scanner); -> Método por crear.
                     break;
                 case 3 :
                     System.out.println("Gracias por usar Booking Hoteles. ¡Hasta pronto!");
-                    System.exit(0);
+                    salir = true;
                 default :
                     System.out.println("Opción inválida. Inténtelo de nuevo.");
                     break;
@@ -73,6 +76,10 @@ public class Main {
                 numeroDeHabitacionesAReservar
         );
 
+        Hotel hotelSeleccionado = null;
+        List<Habitacion> opcionesHabitac = null;
+        Habitacion habitacSeleccionada = null;
+
         if (opciones.isEmpty()) {
             System.out.println("No se encontró ningún hotel que cumpla con los criterios de búsqueda.");
         } else {
@@ -88,15 +95,22 @@ public class Main {
                 if (seleccion < 1 || seleccion > opciones.size()) {
                     System.out.println("Selección inválida, intente de nuevo.");
                 } else {
-                    Hotel hotelSeleccionado = opciones.get(seleccion - 1);
-                    nuevaBusqueda.confirmarHabitaciones(hotelSeleccionado, fechaInicioAlojamiento, fechaFinalAlojamiento,
-                            numeroDeAdultos, numeroDeNiños, numeroDeHabitacionesAReservar);
+                    hotelSeleccionado = opciones.get(seleccion - 1);
+                    opcionesHabitac = nuevaBusqueda.confirmarHabitaciones(
+                            hotelSeleccionado,
+                            fechaInicioAlojamiento,
+                            fechaFinalAlojamiento,
+                            numeroDeAdultos,
+                            numeroDeNiños,
+                            numeroDeHabitacionesAReservar);
                 }
             } catch (Exception e) {
                 System.out.println("Entrada inválida. Inténtelo de nuevo.");
                 scanner.nextLine();
             }
         }
+
+        // Validaciones para elegir habitación.
 
     }
 
