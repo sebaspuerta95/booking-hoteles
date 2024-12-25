@@ -22,4 +22,11 @@ public class Cliente {
         return nombre;
     }
 
+    public String getEmail() {
+        return email;
+    }
+
+    public String getFechaNacimiento() {
+        return fechaNacimiento;
+    }
 }

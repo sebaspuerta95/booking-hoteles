@@ -2,6 +2,7 @@ package src.main.java.inicioApp;
 
 import src.main.java.clases.*;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
@@ -160,8 +161,10 @@ public class Main {
         scanner.nextLine();
 
         Cliente nuevoCliente = new Cliente(nombre, apellido, fechaNacimiento, email, nacionalidad, numTelefonico);
+        List<Habitacion> habitacionesSeleccionadas = new ArrayList<>();
+        habitacionesSeleccionadas.add(habitacSeleccionada);
 
-        hotelSeleccionado.generarReserva(nuevoCliente, habitacSeleccionada, fechaInicioAlojamiento, fechaFinalAlojamiento, horaAproxLlegada);
+        hotelSeleccionado.generarReserva(nuevoCliente, habitacionesSeleccionadas, fechaInicioAlojamiento, fechaFinalAlojamiento, horaAproxLlegada);
 
     }
 
