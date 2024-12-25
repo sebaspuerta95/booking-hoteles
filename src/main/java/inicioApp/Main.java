@@ -1,9 +1,7 @@
 package src.main.java.inicioApp;
 
-import src.main.java.clases.BaseDeDatos;
-import src.main.java.clases.Hotel;
-import src.main.java.clases.Habitacion;
-import src.main.java.clases.ServicioBusqueda;
+import src.main.java.clases.*;
+
 import java.util.List;
 import java.util.Scanner;
 
@@ -138,7 +136,32 @@ public class Main {
             }
         }
 
-        // Selección de reserva y confirmación.
+        System.out.println("Habitación seleccionada exitosamente. Por favor provee la siguiente información:");
+        System.out.println("Nombre:");
+        String nombre = scanner.nextLine();
+
+        System.out.println("Apellido:");
+        String apellido = scanner.nextLine();
+
+        System.out.println("Fecha de nacimiento (yyyy-MM-dd):");
+        String fechaNacimiento = scanner.nextLine();
+
+        System.out.println("E-mail:");
+        String email = scanner.nextLine();
+
+        System.out.println("Nacionalidad:");
+        String nacionalidad = scanner.nextLine();
+
+        System.out.println("Número telefónico:");
+        String numTelefonico = scanner.nextLine();
+
+        System.out.println("Hora aproximada de llegada:");
+        String horaAproxLlegada = scanner.nextLine();
+        scanner.nextLine();
+
+        Cliente nuevoCliente = new Cliente(nombre, apellido, fechaNacimiento, email, nacionalidad, numTelefonico);
+
+        hotelSeleccionado.generarReserva(nuevoCliente, habitacSeleccionada, fechaInicioAlojamiento, fechaFinalAlojamiento, horaAproxLlegada);
 
     }
 }
