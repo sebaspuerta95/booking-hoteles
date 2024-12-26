@@ -45,8 +45,8 @@ public class ServicioBusqueda {
                 System.out.println("Tipo de alojamiento: " + hotel.getTipoAlojamiento());
                 System.out.println("Ciudad del establecimiento: " + hotel.getCiudad());
                 System.out.println("Puntuación: " + hotel.getPuntuacion());
-                System.out.println("Precio por habitación: $" + precioHabitacion);
-                System.out.println("Precio total de la estadía: $" + precioFinalConDescuento);
+                System.out.println("Precio por habitación: $" + String.format("%.2f", precioHabitacion));
+                System.out.println("Precio total de la estadía: $" + String.format("%.2f", precioFinalConDescuento));
                 System.out.println("-----------------------------------------");
             } else {
                 System.out.println("El hotel " + hotel.getNombre() + " no tiene habitaciones disponibles para las fechas solicitadas.");
@@ -100,7 +100,7 @@ public class ServicioBusqueda {
             System.out.println("Tipo: " + habitacion.getTipo()
                     + " | Características: " + habitacion.getCaracteristicas()
                     + " | Precio por habitación: $" + String.format("%.2f", habitacion.getPrecio())
-                    + " | Precio total: $" + precioFinalConDescuento);
+                    + " | Precio total: $" + String.format("%.2f", precioFinalConDescuento));
         }
 
         return resultadosHabitaciones;

@@ -32,6 +32,7 @@ public class Reserva {
         System.out.println("Cliente: " + cliente.getNombre() + " " + cliente.getApellido());
         System.out.println("Hotel: " + hotel.getNombre());
         System.out.println("Fecha de inicio: " + fechaInicio + " | Fecha de final: " + fechaFinal);
+        System.out.println("Hora extimada de llegada: " + horaAproxLlegada);
         System.out.println("Habitaciones: " );
         imprimirHabitacion();
     }
