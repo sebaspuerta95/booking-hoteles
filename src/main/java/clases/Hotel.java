@@ -62,7 +62,6 @@ public class Hotel {
             case 1 :
                 System.out.println("Habitaciones reservadas:");
                 for (int i = 0; i < reserva.getHabitaciones().size(); i++) {
-                    //System.out.println((i + 1) + ". \n");
                     reserva.imprimirHabitacion();
                 }
                 System.out.println("¿Cuál habitación deseas cambiar?");
@@ -80,8 +79,7 @@ public class Hotel {
                         System.out.println((i+1)
                                 + ". Tipo: " + habitaciones.get(i).getTipo() + " | "
                                 + "Características: " + habitaciones.get(i).getCaracteristicas() + " | "
-                                + "Precio: $" + habitaciones.get(i).getPrecio());
-                        // src.main.java.clases.Habitacion@6438a396
+                                + "Precio: $" + String.format("%.2f", habitaciones.get(i).getPrecio()));
                     }
                 }
                 int nuevaHabitacionIndex = scanner.nextInt() - 1;
@@ -133,10 +131,6 @@ public class Hotel {
 
     public List<Habitacion> getHabitaciones() {
         return habitaciones;
-    }
-
-    public List<Reserva> getReservas (){
-        return reservas;
     }
 
 }

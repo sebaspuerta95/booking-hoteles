@@ -32,8 +32,4 @@ public class Habitacion {
         return disponibilidad;
     }
 
-    public void setDisponibilidad(int disponibilidad) {
-        this.disponibilidad = disponibilidad;
-    }
-
 }

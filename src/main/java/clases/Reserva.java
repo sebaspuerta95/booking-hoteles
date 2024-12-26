@@ -41,7 +41,7 @@ public class Reserva {
             System.out.println((i+1)
                     + ". Tipo: " + habitacion.get(i).getTipo() + " | "
                     + "Características: " + habitacion.get(i).getCaracteristicas() + " | "
-                    + "Precio: $" + habitacion.get(i).getPrecio());
+                    + "Precio: $" + String.format("%.2f", habitacion.get(i).getPrecio()));
         }
     }
 }

@@ -99,7 +99,7 @@ public class ServicioBusqueda {
             precioFinalConDescuento = calcularDescuento(habitacion.getPrecio(), fechaInicioAlojamiento, fechaFinalAlojamiento, numeroDeHabitacionesAReservar);
             System.out.println("Tipo: " + habitacion.getTipo()
                     + " | Características: " + habitacion.getCaracteristicas()
-                    + " | Precio por habitación: $" + habitacion.getPrecio()
+                    + " | Precio por habitación: $" + String.format("%.2f", habitacion.getPrecio())
                     + " | Precio total: $" + precioFinalConDescuento);
         }
 
