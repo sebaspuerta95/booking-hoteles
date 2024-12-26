@@ -36,7 +36,7 @@ public class Reserva {
         imprimirHabitacion();
     }
 
-    private void imprimirHabitacion(){
+    public void imprimirHabitacion(){
         for (int i =0; i < habitacion.size(); i++){
             System.out.println((i+1)
                     + "Tipo: " + habitacion.get(i).getTipo() + " | "
