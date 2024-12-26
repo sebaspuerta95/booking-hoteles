@@ -22,6 +22,10 @@ public class Cliente {
         return nombre;
     }
 
+    public String getApellido() {
+        return apellido;
+    }
+
     public String getEmail() {
         return email;
     }

@@ -28,4 +28,21 @@ public class Reserva {
         return habitacion;
     }
 
+    public void imprimirReserva(){
+        System.out.println("Cliente: " + cliente.getNombre() + " " + cliente.getApellido());
+        System.out.println("Hotel: " + hotel);
+        System.out.println("Fecha de inicio: " + fechaInicio + " | Fecha de final: " + fechaFinal);
+        System.out.println("Habitaciones: \n" + imprimirHabitacion());
+    }
+
+    private String imprimirHabitacion(){
+        for (int i =0; i < habitacion.size(); i++){
+            System.out.println("Habitación " + (i+1) + ": \n"
+                    + "Tipo: " + habitacion.get(i).getTipo()
+                    + "Características: " + habitacion.get(i).getCaracteristicas()
+                    + "Precio: $" + habitacion.get(i).getPrecio());
+        }
+        return null;
+    }
+
 }

@@ -49,7 +49,7 @@ public class Hotel {
 
         // Interactuar con el usuario para actualizar la reserva
         System.out.println("Reserva encontrada: ");
-        System.out.println(reserva);
+        reserva.imprimirReserva();
 
         System.out.println("¿Deseas cambiar la habitación o el alojamiento?");
         System.out.println("1. Cambiar habitación");
