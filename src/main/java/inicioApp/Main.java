@@ -72,7 +72,7 @@ public class Main {
     }
 
     private static void actualizarReserva() {
-        String email = InteraccionUsuario.solicitarCadena("Para actualizar tu reserva actual, primero debemos validar tu identidad. \nIngresa tu email:");
+        String email = InteraccionUsuario.solicitarCadena("Para actualizar tu reserva actual, primero debemos validar tu identidad. \nIngresa tu email: ");
         String fechaNacimiento = InteraccionUsuario.solicitarCadena("Ingrese su fecha de nacimiento (yyyy-MM-dd): ");
 
         if (hotelSeleccionado == null) {

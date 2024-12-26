@@ -49,6 +49,7 @@ public class InteraccionUsuario {
     }
 
     public static Cliente solicitarCliente() {
+        scanner.nextLine();
         String nombre = solicitarCadena("Ingrese su nombre: ");
         String apellido = solicitarCadena("Ingrese su apellido: ");
         String fechaNacimiento = solicitarCadena("Ingrese su fecha de nacimiento (yyyy-MM-dd): ");
