@@ -44,6 +44,8 @@ public class Main {
         }
     }
 
+    public static Hotel hotelSeleccionado = null;
+
     public static void buscarYReservarHotel(Scanner scanner){
 
         System.out.println("Ingrese la ciudad donde desea alojarse:");
@@ -79,8 +81,7 @@ public class Main {
                 numeroDeHabitacionesAReservar
         );
 
-        Hotel hotelSeleccionado = null;
-        List<Habitacion> opcionesHabitac = null;
+        List<Habitacion> opcionesHabitac = new ArrayList<>();
         Habitacion habitacSeleccionada = null;
 
         if (opciones.isEmpty()) {
@@ -99,6 +100,7 @@ public class Main {
                     System.out.println("Selección inválida, intente de nuevo.");
                 } else {
                     hotelSeleccionado = opciones.get(seleccion - 1);
+                    assert hotelSeleccionado != null;
                     opcionesHabitac = nuevaBusqueda.confirmarHabitaciones(
                             hotelSeleccionado,
                             fechaInicioAlojamiento,
@@ -112,6 +114,7 @@ public class Main {
                 scanner.nextLine();
             }
         }
+
 
         if (opcionesHabitac.isEmpty()) {
             System.out.println("No se encontraron habitaciones disponibles para la fecha seleccionada.");
@@ -129,7 +132,7 @@ public class Main {
                     System.out.println("Selección inválida, intente de nuevo.");
                 } else {
                     habitacSeleccionada = opcionesHabitac.get(seleccion - 1);
-
+                    System.out.println("Habitación seleccionada exitosamente. Por favor provee la siguiente información:");
                 }
             } catch (Exception e) {
                 System.out.println("Entrada inválida. Inténtelo de nuevo.");
@@ -137,7 +140,6 @@ public class Main {
             }
         }
 
-        System.out.println("Habitación seleccionada exitosamente. Por favor provee la siguiente información:");
         System.out.println("Nombre:");
         String nombre = scanner.nextLine();
 
@@ -174,9 +176,8 @@ public class Main {
         System.out.println("Ingresa tu fecha de nacimiento (YYYY-MM-DD):");
         String fechaNacimiento = scanner.next();
 
-        for (Hotel hotel : hoteles) {
-            hotel.actualizarReserva(email, fechaNacimiento);
-        }
+        hotelSeleccionado.actualizarReserva(email, fechaNacimiento);
+
     }
 
 }

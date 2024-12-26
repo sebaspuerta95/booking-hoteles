@@ -27,7 +27,7 @@ public class Hotel {
         Reserva nuevaReserva = new Reserva(cliente, this, habitacion, fechaInicio, fechaFinal, horaAproxLlegada);
         reservas.add(nuevaReserva);
         // habitacion.setDisponibilidad(habitacion.getDisponibilidad() - 1);
-        System.out.println("Reserva generada con éxito para el cliente: " + cliente.getNombre());
+        System.out.println("Reserva generada con éxito para el cliente: " + cliente.getNombre() + " " + cliente.getApellido());
 
     }
 
@@ -62,7 +62,7 @@ public class Hotel {
             case 1 :
                 System.out.println("Habitaciones reservadas:");
                 for (int i = 0; i < reserva.getHabitaciones().size(); i++) {
-                    System.out.println((i + 1) + ". " + reserva.getHabitaciones().get(i));
+                    System.out.println((i + 1) + ". " + reserva.getHabitaciones().get(i)); // src.main.java.clases.Habitacion@6438a396
                 }
                 System.out.println("¿Cuál habitación deseas cambiar?");
                 int habitacionIndex = scanner.nextInt() - 1;
@@ -76,7 +76,7 @@ public class Hotel {
                 System.out.println("Selecciona una nueva habitación:");
                 for (int i = 0; i < habitaciones.size(); i++) {
                     if (habitaciones.get(i).getDisponibilidad() > 0) {
-                        System.out.println((i + 1) + ". " + habitaciones.get(i));
+                        System.out.println((i + 1) + ". " + habitaciones.get(i)); // src.main.java.clases.Habitacion@6438a396
                     }
                 }
                 int nuevaHabitacionIndex = scanner.nextInt() - 1;
@@ -129,4 +129,9 @@ public class Hotel {
     public List<Habitacion> getHabitaciones() {
         return habitaciones;
     }
+
+    public List<Reserva> getReservas (){
+        return reservas;
+    }
+
 }

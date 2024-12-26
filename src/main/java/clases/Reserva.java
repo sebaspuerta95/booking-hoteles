@@ -30,19 +30,18 @@ public class Reserva {
 
     public void imprimirReserva(){
         System.out.println("Cliente: " + cliente.getNombre() + " " + cliente.getApellido());
-        System.out.println("Hotel: " + hotel);
+        System.out.println("Hotel: " + hotel.getNombre());
         System.out.println("Fecha de inicio: " + fechaInicio + " | Fecha de final: " + fechaFinal);
-        System.out.println("Habitaciones: \n" + imprimirHabitacion());
+        System.out.println("Habitaciones: " );
+        imprimirHabitacion();
     }
 
-    private String imprimirHabitacion(){
+    private void imprimirHabitacion(){
         for (int i =0; i < habitacion.size(); i++){
-            System.out.println("Habitación " + (i+1) + ": \n"
-                    + "Tipo: " + habitacion.get(i).getTipo()
-                    + "Características: " + habitacion.get(i).getCaracteristicas()
+            System.out.println((i+1)
+                    + "Tipo: " + habitacion.get(i).getTipo() + " | "
+                    + "Características: " + habitacion.get(i).getCaracteristicas() + " | "
                     + "Precio: $" + habitacion.get(i).getPrecio());
         }
-        return null;
     }
-
 }
