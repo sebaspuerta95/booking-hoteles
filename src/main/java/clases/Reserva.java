@@ -39,7 +39,7 @@ public class Reserva {
     public void imprimirHabitacion(){
         for (int i =0; i < habitacion.size(); i++){
             System.out.println((i+1)
-                    + "Tipo: " + habitacion.get(i).getTipo() + " | "
+                    + ". Tipo: " + habitacion.get(i).getTipo() + " | "
                     + "Características: " + habitacion.get(i).getCaracteristicas() + " | "
                     + "Precio: $" + habitacion.get(i).getPrecio());
         }
