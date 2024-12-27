@@ -9,7 +9,10 @@ public class BaseDeDatos {
 
     public BaseDeDatos() {
         hoteles = new ArrayList<>();
+        inicializarHoteles();
+    }
 
+    private void inicializarHoteles() {
         String[] ciudades = {"Medellín", "Bogotá", "Cartagena", "Cali"};
         String[] tiposAlojamiento = {"Hotel", "Apartamento", "Cabaña", "Día de Sol"};
         String[] nombresHoteles = {
@@ -21,61 +24,71 @@ public class BaseDeDatos {
 
         int[] puntuaciones = {3, 4, 5, 3, 4, 5, 4, 3, 5, 4, 3, 5, 4, 3, 5, 4};
 
-        for (int i = 0; i < 16; i++) {
+        for (int i = 0; i < puntuaciones.length; i++) {
+
             String ciudad = ciudades[i % ciudades.length];
             String nombre = nombresHoteles[i];
             String tipoAlojamiento = tiposAlojamiento[i % tiposAlojamiento.length];
             int puntuacion = puntuaciones[i];
 
             Hotel hotel = new Hotel(ciudad, nombre, tipoAlojamiento, puntuacion);
-
-            if (tipoAlojamiento.equalsIgnoreCase("Día de Sol")) {
-                List<Habitacion> opcionDiaDeSol = new ArrayList<>();
-                opcionDiaDeSol.add(new Habitacion(
-                        "Día de Sol",
-                        25.0,
-                        "Natación, cancha de tennis, senderismo, almuerzo incluido.",
-                        50
-                ));
-                hotel.setHabitaciones(opcionDiaDeSol);
-            } else {
-                List<Habitacion> habitaciones = new ArrayList<>();
-                habitaciones.add(new Habitacion(
-                        "Sencilla",
-                        50.0 + i,
-                        "1 cama individual, TV, aire acondicionado",
-                        5
-                ));
-                habitaciones.add(new Habitacion(
-                        "Doble",
-                        80.0 + i,
-                        "2 camas individuales, TV, aire acondicionado",
-                        3
-                ));
-                habitaciones.add(new Habitacion(
-                        "Suite",
-                        150.0 + i,
-                        "1 cama king, jacuzzi, vista al mar",
-                        2
-                ));
-                habitaciones.add(new Habitacion(
-                        "Familiar",
-                        120.0 + i,
-                        "3 camas, cocina, sala de estar",
-                        4
-                ));
-                habitaciones.add(new Habitacion(
-                        "Lujo",
-                        200.0 + i,
-                        "Suite presidencial, jacuzzi, terraza",
-                        1
-                ));
-
-                hotel.setHabitaciones(habitaciones);
-            }
-
+            asignarHabitaciones(hotel, tipoAlojamiento, i);
             hoteles.add(hotel);
         }
+    }
+
+    private void asignarHabitaciones(Hotel hotel, String tipoAlojamiento, int index) {
+        if (tipoAlojamiento.equalsIgnoreCase("Día de Sol")) {
+            hotel.setHabitaciones(obtenerHabitacionesDiaDeSol());
+        } else {
+            hotel.setHabitaciones(obtenerHabitacionesGenerales(index));
+        }
+    }
+
+    private List<Habitacion> obtenerHabitacionesDiaDeSol() {
+        List<Habitacion> habitaciones = new ArrayList<>();
+        habitaciones.add(new Habitacion(
+                "Día de Sol",
+                25.0,
+                "Natación, cancha de tennis, senderismo, almuerzo incluido.",
+                50
+        ));
+        return habitaciones;
+    }
+
+    private List<Habitacion> obtenerHabitacionesGenerales(int indice) {
+        List<Habitacion> habitaciones = new ArrayList<>();
+        habitaciones.add(new Habitacion(
+                "Sencilla",
+                50.0 + indice,
+                "1 cama individual, TV, aire acondicionado",
+                5
+        ));
+        habitaciones.add(new Habitacion(
+                "Doble",
+                80.0 + indice,
+                "2 camas individuales, TV, aire acondicionado",
+                3
+        ));
+        habitaciones.add(new Habitacion(
+                "Suite",
+                150.0 + indice,
+                "1 cama king, jacuzzi, vista al mar",
+                2
+        ));
+        habitaciones.add(new Habitacion(
+                "Familiar",
+                120.0 + indice,
+                "3 camas, cocina, sala de estar",
+                4
+        ));
+        habitaciones.add(new Habitacion(
+                "Lujo",
+                200.0 + indice,
+                "Suite presidencial, jacuzzi, terraza",
+                1
+        ));
+        return habitaciones;
     }
 
     public static List<Hotel> getHoteles() {
