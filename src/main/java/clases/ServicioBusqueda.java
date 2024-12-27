@@ -8,58 +8,73 @@ import java.util.List;
 public class ServicioBusqueda {
 
     public List<Hotel> buscarHoteles(List<Hotel> hoteles, String ciudad, String tipoAlojamiento, String fechaInicioAlojamiento, String fechaFinalAlojamiento, int numeroDeAdultos, int numeroDeNiños, int numeroDeHabitacionesAReservar) {
+        List<Hotel> resultados = filtroDeHotelesPorCriterio(hoteles, ciudad, tipoAlojamiento);
 
-        // 1. Comparar la ciudad y el tipo de alojamiento con los datos de los hoteles.
+        obtenerHabitacionesPorHotel(resultados, fechaInicioAlojamiento, fechaFinalAlojamiento, numeroDeHabitacionesAReservar);
+
+        return resultados;
+    }
+
+    private List<Hotel> filtroDeHotelesPorCriterio(List<Hotel> hoteles, String ciudad, String tipoAlojamiento) {
         List<Hotel> resultados = new ArrayList<>();
         for (Hotel hotel : hoteles) {
             if (hotel.getCiudad().equalsIgnoreCase(ciudad) || hotel.getTipoAlojamiento().equalsIgnoreCase(tipoAlojamiento)) {
                 resultados.add(hotel);
             }
         }
-
-        // 2. Para cada hotel, verificar qué habitaciones hay disponibles.
-
-        for (Hotel hotel : resultados) {
-            Habitacion habitacionMasBarata = null;
-
-            // 3. Buscar la habitación más económica de cada hotel.
-            for (Habitacion habitacion : hotel.getHabitaciones()) {
-                if (habitacion.getDisponibilidad() > 0) {
-                    if (habitacionMasBarata == null) {
-                        // Asignar la primera habitación disponible como referencia
-                        habitacionMasBarata = habitacion;
-                    } else if (habitacion.getPrecio() < habitacionMasBarata.getPrecio()) {
-                        // Comparar el precio con la habitación más barata encontrada
-                        habitacionMasBarata = habitacion;
-                    }
-                }
-            }
-
-            // 4. Calcular el precio y mostrar los detalles de la habitación más barata.
-
-            if (habitacionMasBarata != null) {
-                double precioHabitacion = habitacionMasBarata.getPrecio();
-                double precioFinalConDescuento = obtenerPrecioPorFecha(precioHabitacion, fechaInicioAlojamiento, fechaFinalAlojamiento, numeroDeHabitacionesAReservar);
-
-                System.out.println("Nombre del establecimiento: " + hotel.getNombre());
-                System.out.println("Tipo de alojamiento: " + hotel.getTipoAlojamiento());
-                System.out.println("Ciudad del establecimiento: " + hotel.getCiudad());
-                System.out.println("Puntuación: " + hotel.getPuntuacion());
-                System.out.println("Precio por habitación: $" + String.format("%.2f", precioHabitacion));
-                System.out.println("Precio total de la estadía: $" + String.format("%.2f", precioFinalConDescuento));
-                System.out.println("-----------------------------------------");
-            } else {
-                System.out.println("El hotel " + hotel.getNombre() + " no tiene habitaciones disponibles para las fechas solicitadas.");
-                System.out.println("-----------------------------------------");
-            }
-
-        }
-
-        // 5. Devolver una lista de hoteles que cumplan con los criterios de búsqueda para que el usuario pueda elegir una opción.
         return resultados;
     }
 
-    // Este es un método auxiliar para calcular el descuento/aumento según las fechas. Es privado para que no sea usado desde otra clase.
+    private void obtenerHabitacionesPorHotel(List<Hotel> resultados, String fechaInicioAlojamiento, String fechaFinalAlojamiento, int numeroDeHabitacionesAReservar) {
+        for (Hotel hotel : resultados) {
+            Habitacion habitacionMasBarata = obtenerHabitacionMasBarataPorHotel(hotel);
+
+            mostrarHabitacionConPrecio(hotel, habitacionMasBarata, fechaInicioAlojamiento, fechaFinalAlojamiento, numeroDeHabitacionesAReservar);
+        }
+    }
+
+    private Habitacion obtenerHabitacionMasBarataPorHotel (Hotel hotel){
+        Habitacion habitacionMasBarata = null;
+        for (Habitacion habitacion : hotel.getHabitaciones()) {
+            if (habitacion.getDisponibilidad() > 0) {
+                habitacionMasBarata = filtrarPorHabitaciones(habitacion, habitacionMasBarata);
+            }
+        }
+        return habitacionMasBarata;
+    }
+
+    private Habitacion filtrarPorHabitaciones (Habitacion habitacion, Habitacion habitacionMasBarata){
+        if (habitacionMasBarata == null) {
+            habitacionMasBarata = habitacion;
+        } else if (habitacion.getPrecio() < habitacionMasBarata.getPrecio()) {
+            habitacionMasBarata = habitacion;
+        }
+        return habitacionMasBarata;
+    }
+
+    private void mostrarHabitacionConPrecio(Hotel hotel, Habitacion habitacionMasBarata, String fechaInicioAlojamiento,
+                                            String fechaFinalAlojamiento, int numeroDeHabitacionesAReservar) {
+        if (habitacionMasBarata != null) {
+            double precioHabitacion = habitacionMasBarata.getPrecio();
+            double precioFinalConDescuento = obtenerPrecioPorFecha(precioHabitacion, fechaInicioAlojamiento, fechaFinalAlojamiento, numeroDeHabitacionesAReservar);
+
+            imprimirInformacionDelHotel(hotel, precioHabitacion, precioFinalConDescuento);
+        } else {
+            System.out.println("El hotel " + hotel.getNombre() + " no tiene habitaciones disponibles para las fechas solicitadas.");
+            System.out.println("-----------------------------------------");
+        }
+    }
+
+    private void imprimirInformacionDelHotel(Hotel hotel, double precioHabitacion, double precioFinalConDescuento) {
+        System.out.println("Nombre del establecimiento: " + hotel.getNombre());
+        System.out.println("Tipo de alojamiento: " + hotel.getTipoAlojamiento());
+        System.out.println("Ciudad del establecimiento: " + hotel.getCiudad());
+        System.out.println("Puntuación: " + hotel.getPuntuacion());
+        System.out.println("Precio por habitación: $" + String.format("%.2f", precioHabitacion));
+        System.out.println("Precio total de la estadía: $" + String.format("%.2f", precioFinalConDescuento));
+        System.out.println("-----------------------------------------");
+    }
+
     private double obtenerPrecioPorFecha(double precioHabitacion, String fechaInicioAlojamiento, String fechaFinalAlojamiento, int numeroDeHabitacionesAReservar) {
         LocalDate inicio = transformarAFecha(fechaInicioAlojamiento);
         LocalDate fin = transformarAFecha(fechaFinalAlojamiento);
