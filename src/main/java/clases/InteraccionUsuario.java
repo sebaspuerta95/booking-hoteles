@@ -18,13 +18,13 @@ public class InteraccionUsuario {
 
     public static Hotel seleccionarHotel(String mensaje, List<Hotel> opciones) {
         System.out.println(mensaje);
-        for (int i = 0; i < opciones.size(); i++) {
-            Hotel hotel = opciones.get(i);
-            System.out.println((i + 1) + ". " + hotel.getNombre());
+        for (int i = 0; limiteDeOpcionesHoteles(i, opciones); i++) {
+            imprimirHotel(i, opciones);
         }
 
         int seleccion = solicitarEntero("Ingrese el número de su elección: ") - 1;
-        if (seleccion < 0 || seleccion >= opciones.size()) {
+        int opcionesSize = opciones.size();
+        if (esValidaLaSeleccion(seleccion, opcionesSize)) {
             System.out.println("Selección inválida. Inténtelo de nuevo.");
             return seleccionarHotel(mensaje, opciones);
         }
@@ -32,20 +32,42 @@ public class InteraccionUsuario {
         return opciones.get(seleccion);
     }
 
+    private static boolean limiteDeOpcionesHoteles(int i, List<Hotel> opciones){
+        return i < opciones.size();
+    }
+
+    private static void imprimirHotel (int i, List<Hotel> opciones){
+        Hotel hotel = opciones.get(i);
+        System.out.println((i + 1) + ". " + hotel.getNombre());
+    }
+
+    private static boolean esValidaLaSeleccion(int seleccion, int opcionesSize){
+        return seleccion < 0 || seleccion >= opcionesSize;
+    }
+
     public static Habitacion seleccionarHabitacion(String mensaje, List<Habitacion> opciones) {
         System.out.println(mensaje);
-        for (int i = 0; i < opciones.size(); i++) {
-            Habitacion habitacion = opciones.get(i);
-            System.out.println((i + 1) + ". " + habitacion.getTipo());
+        for (int i = 0; limiteDeOpcionesHabitaciones(i, opciones); i++) {
+            imprimitHabitacion(i, opciones);
         }
 
         int seleccion = solicitarEntero("Ingrese el número de su elección: ") - 1;
-        if (seleccion < 0 || seleccion >= opciones.size()) {
+        int opcionesSize = opciones.size();
+        if (esValidaLaSeleccion(seleccion, opcionesSize)) {
             System.out.println("Selección inválida. Inténtelo de nuevo.");
             return seleccionarHabitacion(mensaje, opciones);
         }
 
         return opciones.get(seleccion);
+    }
+
+    private static boolean limiteDeOpcionesHabitaciones(int i, List<Habitacion> opciones){
+        return i < opciones.size();
+    }
+
+    private static void imprimitHabitacion (int i, List<Habitacion> opciones) {
+        Habitacion habitacion = opciones.get(i);
+        System.out.println((i + 1) + ". " + habitacion.getTipo());
     }
 
     public static Cliente solicitarCliente() {
@@ -63,12 +85,17 @@ public class InteraccionUsuario {
     public static int solicitarOpcion(String mensaje, int min, int max) {
         System.out.print(mensaje);
         int opcion = scanner.nextInt();
-        scanner.nextLine(); // Limpiar buffer
-        if (opcion < min || opcion > max) {
+        scanner.nextLine();
+        if (validarOpcion(opcion, min, max)) {
             System.out.println("Opción inválida. Inténtelo de nuevo.");
             return solicitarOpcion(mensaje, min, max);
         }
         return opcion;
     }
+
+    private static boolean validarOpcion(int opcion, int min, int max) {
+        return opcion < min || opcion > max;
+    }
+
 }
 
