@@ -22,12 +22,12 @@ public class Hotel {
         this.reservas = new ArrayList<>();
     }
 
-    public void generarReserva(Cliente cliente, List<Habitacion> habitacion, String fechaInicio, String fechaFinal, String horaAproxLlegada) {
+    public void generarReserva(Client client, List<Habitacion> habitacion, String fechaInicio, String fechaFinal, String horaAproxLlegada) {
 
-        Reserva nuevaReserva = new Reserva(cliente, this, habitacion, fechaInicio, fechaFinal, horaAproxLlegada);
+        Reserva nuevaReserva = new Reserva(client, this, habitacion, fechaInicio, fechaFinal, horaAproxLlegada);
         reservas.add(nuevaReserva);
         // habitacion.setDisponibilidad(habitacion.getDisponibilidad() - 1);
-        System.out.println("Reserva generada con éxito para el cliente: " + cliente.getNombre() + " " + cliente.getApellido());
+        System.out.println("Reserva generada con éxito para el cliente: " + client.getFirstname() + " " + client.getLastname());
 
     }
 
@@ -72,7 +72,7 @@ public class Hotel {
     }
 
     private boolean coincideConReserva (Reserva r, String email, String fechaNacimiento) {
-        return r.getCliente().getEmail().equalsIgnoreCase(email) && r.getCliente().getFechaNacimiento().equals(fechaNacimiento);
+        return r.getCliente().getEmail().equalsIgnoreCase(email) && r.getCliente().getDateOfBirth().equals(fechaNacimiento);
     }
 
     private void esReservaNula(Reserva reserva) {

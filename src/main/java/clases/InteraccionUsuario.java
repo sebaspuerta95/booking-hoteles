@@ -70,7 +70,7 @@ public class InteraccionUsuario {
         System.out.println((i + 1) + ". " + habitacion.getTipo());
     }
 
-    public static Cliente solicitarCliente() {
+    public static Client solicitarCliente() {
         scanner.nextLine();
         String nombre = solicitarCadena("Ingrese su nombre: ");
         String apellido = solicitarCadena("Ingrese su apellido: ");
@@ -79,7 +79,7 @@ public class InteraccionUsuario {
         String nacionalidad = solicitarCadena("Ingrese su nacionalidad: ");
         String telefono = solicitarCadena("Ingrese su número de teléfono: ");
 
-        return new Cliente(nombre, apellido, fechaNacimiento, email, nacionalidad, telefono);
+        return new Client(nombre, apellido, fechaNacimiento, email, nacionalidad, telefono);
     }
 
     public static int solicitarOpcion(String mensaje, int min, int max) {

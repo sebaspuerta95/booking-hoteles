@@ -4,15 +4,15 @@ import java.util.List;
 
 public class Reserva {
 
-    private Cliente cliente;
+    private Client client;
     private Hotel hotel;
     private List<Habitacion> habitacion;
     private String fechaInicio;
     private String fechaFinal;
     private String horaAproxLlegada;
 
-    public Reserva(Cliente cliente, Hotel hotel, List<Habitacion> habitacion, String fechaInicio, String fechaFinal, String horaAproxLlegada) {
-        this.cliente = cliente;
+    public Reserva(Client client, Hotel hotel, List<Habitacion> habitacion, String fechaInicio, String fechaFinal, String horaAproxLlegada) {
+        this.client = client;
         this.hotel = hotel;
         this.habitacion = habitacion;
         this.fechaInicio = fechaInicio;
@@ -20,8 +20,8 @@ public class Reserva {
         this.horaAproxLlegada = horaAproxLlegada;
     }
 
-    public Cliente getCliente() {
-        return cliente;
+    public Client getCliente() {
+        return client;
     }
 
     public List<Habitacion> getHabitaciones() {
@@ -29,7 +29,7 @@ public class Reserva {
     }
 
     public void imprimirReserva(){
-        System.out.println("Cliente: " + cliente.getNombre() + " " + cliente.getApellido());
+        System.out.println("Cliente: " + client.getFirstname() + " " + client.getLastname());
         System.out.println("Hotel: " + hotel.getNombre());
         System.out.println("Fecha de inicio: " + fechaInicio + " | Fecha de final: " + fechaFinal);
         System.out.println("Hora extimada de llegada: " + horaAproxLlegada);

@@ -61,13 +61,13 @@ public class Main {
 
         Habitacion habitacionSeleccionada = InteraccionUsuario.seleccionarHabitacion("Seleccione el número de la habitación que desea reservar:", habitacionesDisponibles);
 
-        Cliente cliente = InteraccionUsuario.solicitarCliente();
+        Client client = InteraccionUsuario.solicitarCliente();
         String horaAproxLlegada  = InteraccionUsuario.solicitarCadena("Hora aproximada de llegada: ");
 
         List<Habitacion> habitacionesSeleccionadas = new ArrayList<>();
         habitacionesSeleccionadas.add(habitacionSeleccionada);
 
-        hotelSeleccionado.generarReserva(cliente, habitacionesSeleccionadas, fechaInicio, fechaFinal, horaAproxLlegada );
+        hotelSeleccionado.generarReserva(client, habitacionesSeleccionadas, fechaInicio, fechaFinal, horaAproxLlegada );
         System.out.println("Reserva realizada con éxito.");
     }
 
