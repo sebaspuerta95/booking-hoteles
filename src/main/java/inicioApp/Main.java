@@ -1,6 +1,7 @@
 package src.main.java.inicioApp;
 
 import src.main.java.clases.*;
+import src.main.java.utils.Database;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,8 +9,8 @@ import java.util.List;
 public class Main {
 
     private static final ServicioBusqueda servicioBusqueda = new ServicioBusqueda();
-    private static final BaseDeDatos baseDeDatos = new BaseDeDatos();
-    private static final List<Hotel> hoteles = baseDeDatos.getHoteles();
+    private static final Database DATABASE = new Database();
+    private static final List<Hotel> hoteles = DATABASE.getHotelsList();
     private static Hotel hotelSeleccionado;
 
     public static void main(String[] args) {
