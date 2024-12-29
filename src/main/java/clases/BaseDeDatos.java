@@ -45,9 +45,9 @@ public class BaseDeDatos {
         }
     }
 
-    private List<Habitacion> obtenerHabitacionesDiaDeSol() {
-        List<Habitacion> habitaciones = new ArrayList<>();
-        habitaciones.add(new Habitacion(
+    private List<Room> obtenerHabitacionesDiaDeSol() {
+        List<Room> habitaciones = new ArrayList<>();
+        habitaciones.add(new Room(
                 "Día de Sol",
                 25.0,
                 "Natación, cancha de tennis, senderismo, almuerzo incluido.",
@@ -56,33 +56,33 @@ public class BaseDeDatos {
         return habitaciones;
     }
 
-    private List<Habitacion> obtenerHabitacionesGenerales(int indice) {
-        List<Habitacion> habitaciones = new ArrayList<>();
-        habitaciones.add(new Habitacion(
+    private List<Room> obtenerHabitacionesGenerales(int indice) {
+        List<Room> habitaciones = new ArrayList<>();
+        habitaciones.add(new Room(
                 "Sencilla",
                 50.0 + indice,
                 "1 cama individual, TV, aire acondicionado",
                 5
         ));
-        habitaciones.add(new Habitacion(
+        habitaciones.add(new Room(
                 "Doble",
                 80.0 + indice,
                 "2 camas individuales, TV, aire acondicionado",
                 3
         ));
-        habitaciones.add(new Habitacion(
+        habitaciones.add(new Room(
                 "Suite",
                 150.0 + indice,
                 "1 cama king, jacuzzi, vista al mar",
                 2
         ));
-        habitaciones.add(new Habitacion(
+        habitaciones.add(new Room(
                 "Familiar",
                 120.0 + indice,
                 "3 camas, cocina, sala de estar",
                 4
         ));
-        habitaciones.add(new Habitacion(
+        habitaciones.add(new Room(
                 "Lujo",
                 200.0 + indice,
                 "Suite presidencial, jacuzzi, terraza",

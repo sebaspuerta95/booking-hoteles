@@ -45,7 +45,7 @@ public class InteraccionUsuario {
         return seleccion < 0 || seleccion >= opcionesSize;
     }
 
-    public static Habitacion seleccionarHabitacion(String mensaje, List<Habitacion> opciones) {
+    public static Room seleccionarHabitacion(String mensaje, List<Room> opciones) {
         System.out.println(mensaje);
         for (int i = 0; limiteDeOpcionesHabitaciones(i, opciones); i++) {
             imprimitHabitacion(i, opciones);
@@ -61,13 +61,13 @@ public class InteraccionUsuario {
         return opciones.get(seleccion);
     }
 
-    private static boolean limiteDeOpcionesHabitaciones(int i, List<Habitacion> opciones){
+    private static boolean limiteDeOpcionesHabitaciones(int i, List<Room> opciones){
         return i < opciones.size();
     }
 
-    private static void imprimitHabitacion (int i, List<Habitacion> opciones) {
-        Habitacion habitacion = opciones.get(i);
-        System.out.println((i + 1) + ". " + habitacion.getTipo());
+    private static void imprimitHabitacion (int i, List<Room> opciones) {
+        Room room = opciones.get(i);
+        System.out.println((i + 1) + ". " + room.getRoomType());
     }
 
     public static Client solicitarCliente() {

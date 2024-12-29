@@ -20,7 +20,7 @@ public class Main {
             int opcion = InteraccionUsuario.solicitarOpcion("""
                     \nSeleccione una opción:
                     1. Buscar hoteles y reservar
-                    2. Actualizar reserva
+                    2. Actualizar reservation
                     3. Salir
                     Ingrese su opción:\s""", 1, 3);
 
@@ -52,27 +52,27 @@ public class Main {
         }
 
         hotelSeleccionado = InteraccionUsuario.seleccionarHotel("Seleccione el número del hotel que desea reservar:", opciones);
-        List<Habitacion> habitacionesDisponibles = servicioBusqueda.confirmarHabitaciones(hotelSeleccionado, fechaInicio, fechaFinal, adultos, ninos, habitaciones);
+        List<Room> habitacionesDisponibles = servicioBusqueda.confirmarHabitaciones(hotelSeleccionado, fechaInicio, fechaFinal, adultos, ninos, habitaciones);
 
         if (habitacionesDisponibles.isEmpty()) {
             System.out.println("No se encontraron habitaciones disponibles para las fechas seleccionadas.");
             return;
         }
 
-        Habitacion habitacionSeleccionada = InteraccionUsuario.seleccionarHabitacion("Seleccione el número de la habitación que desea reservar:", habitacionesDisponibles);
+        Room roomSeleccionada = InteraccionUsuario.seleccionarHabitacion("Seleccione el número de la habitación que desea reservar:", habitacionesDisponibles);
 
         Client client = InteraccionUsuario.solicitarCliente();
         String horaAproxLlegada  = InteraccionUsuario.solicitarCadena("Hora aproximada de llegada: ");
 
-        List<Habitacion> habitacionesSeleccionadas = new ArrayList<>();
-        habitacionesSeleccionadas.add(habitacionSeleccionada);
+        List<Room> habitacionesSeleccionadas = new ArrayList<>();
+        habitacionesSeleccionadas.add(roomSeleccionada);
 
         hotelSeleccionado.generarReserva(client, habitacionesSeleccionadas, fechaInicio, fechaFinal, horaAproxLlegada );
         System.out.println("Reserva realizada con éxito.");
     }
 
     private static void actualizarReserva() {
-        String email = InteraccionUsuario.solicitarCadena("Para actualizar tu reserva actual, primero debemos validar tu identidad. \nIngresa tu email: ");
+        String email = InteraccionUsuario.solicitarCadena("Para actualizar tu reservation actual, primero debemos validar tu identidad. \nIngresa tu email: ");
         String fechaNacimiento = InteraccionUsuario.solicitarCadena("Ingrese su fecha de nacimiento (yyyy-MM-dd): ");
 
         if (hotelSeleccionado == null) {
