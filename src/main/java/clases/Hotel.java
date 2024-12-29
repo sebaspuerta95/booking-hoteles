@@ -6,36 +6,35 @@ import java.util.Scanner;
 
 public class Hotel {
 
-    private String ciudad;
-    private String nombre;
-    private String tipoAlojamiento;
-    private int puntuacion;
-    private List<Room> habitaciones;
+    private String city;
+    private String hotelName;
+    private String accommodationType;
+    private int hotelScore;
+    private List<Room> roomTypes;
     private List<Reservation> reservations;
 
-    public Hotel(String ciudad, String nombre, String tipoAlojamiento, int puntuacion) {
-        this.ciudad = ciudad;
-        this.nombre = nombre;
-        this.tipoAlojamiento = tipoAlojamiento;
-        this.puntuacion = puntuacion;
-        this.habitaciones = new ArrayList<>();
+    public Hotel(String city, String hotelName, String accommodationType, int hotelScore) {
+        this.city = city;
+        this.hotelName = hotelName;
+        this.accommodationType = accommodationType;
+        this.hotelScore = hotelScore;
+        this.roomTypes = new ArrayList<>();
         this.reservations = new ArrayList<>();
     }
 
-    public void generarReserva(Client client, List<Room> room, String fechaInicio, String fechaFinal, String horaAproxLlegada) {
+    public void generateReservation(Client client, List<Room> room, String startDate, String endDate, String estimatedTimeOfArrival) {
 
-        Reservation nuevaReservation = new Reservation(client, this, room, fechaInicio, fechaFinal, horaAproxLlegada);
-        reservations.add(nuevaReservation);
+        Reservation newReservation = new Reservation(client, this, room, startDate, endDate, estimatedTimeOfArrival);
+        reservations.add(newReservation);
         // habitacion.setDisponibilidad(habitacion.getDisponibilidad() - 1);
         System.out.println("Reserva generada con éxito para el cliente: " + client.getFirstname() + " " + client.getLastname());
 
     }
 
-    public void actualizarReserva(String email, String fechaNacimiento) {
-        Reservation reservation = validarIdentidadCliente(email, fechaNacimiento);
-        esReservaNula(reservation);
+    public void updateReservation(String email, String dateOfBirth) {
+        Reservation reservation = validateClientsIdentity(email, dateOfBirth);
+        isReservationNull(reservation);
 
-        // Interactuar con el usuario para actualizar la reserva
         System.out.println("Reserva encontrada: ");
         reservation.printReservation();
 
@@ -48,10 +47,10 @@ public class Hotel {
 
         switch (opcion) {
             case 1 :
-                cambiarHabitacion(reservation, scanner);
+                updateRoom(reservation, scanner);
                 break;
             case 2 :
-                removerReserva(reservation);
+                removeReservation(reservation);
                 break;
             case 3 :
                 System.out.println("Operación cancelada.");
@@ -62,117 +61,117 @@ public class Hotel {
         }
     }
 
-    private Reservation validarIdentidadCliente(String email, String fechaNacimiento) {
+    private Reservation validateClientsIdentity(String email, String dateOfBirth) {
         for (Reservation r : reservations){
-            if (coincideConReserva(r, email, fechaNacimiento)) {
+            if (matchesWithReservation(r, email, dateOfBirth)) {
                 return r;
             }
         }
         return null;
     }
 
-    private boolean coincideConReserva (Reservation r, String email, String fechaNacimiento) {
-        return r.getClient().getEmail().equalsIgnoreCase(email) && r.getClient().getDateOfBirth().equals(fechaNacimiento);
+    private boolean matchesWithReservation(Reservation r, String email, String dateOfBirth) {
+        return r.getClient().getEmail().equalsIgnoreCase(email) && r.getClient().getDateOfBirth().equals(dateOfBirth);
     }
 
-    private void esReservaNula(Reservation reservation) {
+    private void isReservationNull(Reservation reservation) {
         if (reservation == null) {
             System.out.println("Aún no hay reservas a tu nombre.");
         }
     }
 
-    private void removerReserva (Reservation reservation){
+    private void removeReservation(Reservation reservation){
         System.out.println("Reserva actual cancelada. Por favor, realiza una nueva reserva.");
         reservations.remove(reservation);
     }
 
-    private void cambiarHabitacion(Reservation reservation, Scanner scanner){
-        mostrarHabitacionesReservadas(reservation);
+    private void updateRoom(Reservation reservation, Scanner scanner){
+        showBookedReservation(reservation);
 
-        int habitacionIndex = solicitarHabitacionACambiar(reservation, scanner);
+        int roomIndex = askRoomToUpdate(reservation, scanner);
 
-        Room roomActual = reservation.getRooms().get(habitacionIndex);
+        Room currentBookedRoom = reservation.getBookedRooms().get(roomIndex);
 
-        mostrarOpcionesDeHabitaciones();
+        printAvailableRooms();
 
-        int nuevaHabitacionIndex = scanner.nextInt() - 1;
-        if (esOpcionNuevaHabitacionValida(nuevaHabitacionIndex)) {
+        int newRoomIndex = scanner.nextInt() - 1;
+        if (isNewOptionValid(newRoomIndex)) {
             System.out.println("Opción inválida.");
             return;
         }
 
-        Room nuevaRoom = habitaciones.get(nuevaHabitacionIndex);
-        reservation.getRooms().remove(roomActual);
-        reservation.getRooms().add(nuevaRoom);
+        Room newUpdatedRoom = roomTypes.get(newRoomIndex);
+        reservation.getBookedRooms().remove(currentBookedRoom);
+        reservation.getBookedRooms().add(newUpdatedRoom);
         System.out.println("Reserva actualizada con éxito.");
 
     }
 
-    private void mostrarHabitacionesReservadas(Reservation reservation) {
+    private void showBookedReservation(Reservation reservation) {
         System.out.println("Habitaciones reservadas:");
-        for (int i = 0; i < reservation.getRooms().size(); i++) {
+        for (int i = 0; i < reservation.getBookedRooms().size(); i++) {
             reservation.printRoom();
         }
     }
 
-    private int solicitarHabitacionACambiar (Reservation reservation, Scanner scanner) {
+    private int askRoomToUpdate(Reservation reservation, Scanner scanner) {
         System.out.println("¿Cuál habitación deseas cambiar?");
-        int habitacionIndex = scanner.nextInt() - 1;
+        int roomIndex = scanner.nextInt() - 1;
 
-        if (opcionInvalida(habitacionIndex, reservation)) {
+        if (isOptionValid(roomIndex, reservation)) {
             System.out.println("Opción inválida.");
-            return solicitarHabitacionACambiar(reservation, scanner);
+            return askRoomToUpdate(reservation, scanner);
         }
-        return habitacionIndex;
+        return roomIndex;
     }
 
-    private boolean opcionInvalida (int habitacionIndex, Reservation reservation){
-        return habitacionIndex < 0 || habitacionIndex >= reservation.getRooms().size();
+    private boolean isOptionValid(int roomIndex, Reservation reservation){
+        return roomIndex < 0 || roomIndex >= reservation.getBookedRooms().size();
     }
 
-    private void mostrarOpcionesDeHabitaciones(){
+    private void printAvailableRooms(){
         System.out.println("Selecciona una nueva habitación:");
-        for (int i = 0; i < habitaciones.size(); i++) {
-            if (estaDisponible(i)) {
+        for (int i = 0; i < roomTypes.size(); i++) {
+            if (isRoomAvailable(i)) {
                 System.out.println((i+1)
-                        + ". Tipo: " + habitaciones.get(i).getRoomType() + " | "
-                        + "Características: " + habitaciones.get(i).getCharacteristics() + " | "
-                        + "Precio: $" + String.format("%.2f", habitaciones.get(i).getPrice()));
+                        + ". Tipo: " + roomTypes.get(i).getRoomType() + " | "
+                        + "Características: " + roomTypes.get(i).getCharacteristics() + " | "
+                        + "Precio: $" + String.format("%.2f", roomTypes.get(i).getPrice()));
             }
         }
     }
 
-    private boolean estaDisponible(int i){
-        return habitaciones.get(i).getAvailability() > 0;
+    private boolean isRoomAvailable(int i){
+        return roomTypes.get(i).getAvailability() > 0;
     }
 
-    private boolean esOpcionNuevaHabitacionValida(int nuevaHabitacionIndex){
-        return nuevaHabitacionIndex < 0 || nuevaHabitacionIndex >= habitaciones.size() ||
-                habitaciones.get(nuevaHabitacionIndex).getAvailability() <= 0;
+    private boolean isNewOptionValid(int newRoomIndex){
+        return newRoomIndex < 0 || newRoomIndex >= roomTypes.size() ||
+                roomTypes.get(newRoomIndex).getAvailability() <= 0;
     }
 
-    public void setHabitaciones(List<Room> habitaciones) {
-        this.habitaciones = habitaciones;
+    public void setRoomTypes(List<Room> roomTypes) {
+        this.roomTypes = roomTypes;
     }
 
-    public String getCiudad() {
-        return ciudad;
+    public String getCity() {
+        return city;
     }
 
-    public String getNombre() {
-        return nombre;
+    public String getHotelName() {
+        return hotelName;
     }
 
-    public String getTipoAlojamiento() {
-        return tipoAlojamiento;
+    public String getAccommodationType() {
+        return accommodationType;
     }
 
-    public int getPuntuacion() {
-        return puntuacion;
+    public int getHotelScore() {
+        return hotelScore;
     }
 
-    public List<Room> getHabitaciones() {
-        return habitaciones;
+    public List<Room> getRoomTypes() {
+        return roomTypes;
     }
 
 }

@@ -38,7 +38,7 @@ public class InteraccionUsuario {
 
     private static void imprimirHotel (int i, List<Hotel> opciones){
         Hotel hotel = opciones.get(i);
-        System.out.println((i + 1) + ". " + hotel.getNombre());
+        System.out.println((i + 1) + ". " + hotel.getHotelName());
     }
 
     private static boolean esValidaLaSeleccion(int seleccion, int opcionesSize){

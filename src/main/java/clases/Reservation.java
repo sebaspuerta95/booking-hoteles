@@ -6,15 +6,15 @@ public class Reservation {
 
     private Client client;
     private Hotel hotel;
-    private List<Room> rooms;
+    private List<Room> bookedRooms;
     private String startDate;
     private String endDate;
     private String estimatedTimeOfArrival;
 
-    public Reservation(Client client, Hotel hotel, List<Room> rooms, String startDate, String endDate, String estimatedTimeOfArrival) {
+    public Reservation(Client client, Hotel hotel, List<Room> bookedRooms, String startDate, String endDate, String estimatedTimeOfArrival) {
         this.client = client;
         this.hotel = hotel;
-        this.rooms = rooms;
+        this.bookedRooms = bookedRooms;
         this.startDate = startDate;
         this.endDate = endDate;
         this.estimatedTimeOfArrival = estimatedTimeOfArrival;
@@ -24,13 +24,13 @@ public class Reservation {
         return client;
     }
 
-    public List<Room> getRooms() {
-        return rooms;
+    public List<Room> getBookedRooms() {
+        return bookedRooms;
     }
 
     public void printReservation(){
         System.out.println("Cliente: " + client.getFirstname() + " " + client.getLastname());
-        System.out.println("Hotel: " + hotel.getNombre());
+        System.out.println("Hotel: " + hotel.getHotelName());
         System.out.println("Fecha de inicio: " + startDate + " | Fecha de final: " + endDate);
         System.out.println("Hora extimada de llegada: " + estimatedTimeOfArrival);
         System.out.println("Habitaciones: " );
@@ -38,11 +38,11 @@ public class Reservation {
     }
 
     public void printRoom(){
-        for (int i = 0; i < rooms.size(); i++){
+        for (int i = 0; i < bookedRooms.size(); i++){
             System.out.println((i+1)
-                    + ". Tipo: " + rooms.get(i).getRoomType() + " | "
-                    + "Características: " + rooms.get(i).getCharacteristics() + " | "
-                    + "Precio: $" + String.format("%.2f", rooms.get(i).getPrice()));
+                    + ". Tipo: " + bookedRooms.get(i).getRoomType() + " | "
+                    + "Características: " + bookedRooms.get(i).getCharacteristics() + " | "
+                    + "Precio: $" + String.format("%.2f", bookedRooms.get(i).getPrice()));
         }
     }
 }

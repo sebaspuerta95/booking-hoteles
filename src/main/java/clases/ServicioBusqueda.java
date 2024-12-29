@@ -18,7 +18,7 @@ public class ServicioBusqueda {
     private List<Hotel> filtroDeHotelesPorCriterio(List<Hotel> hoteles, String ciudad, String tipoAlojamiento) {
         List<Hotel> resultados = new ArrayList<>();
         for (Hotel hotel : hoteles) {
-            if (hotel.getCiudad().equalsIgnoreCase(ciudad) || hotel.getTipoAlojamiento().equalsIgnoreCase(tipoAlojamiento)) {
+            if (hotel.getCity().equalsIgnoreCase(ciudad) || hotel.getAccommodationType().equalsIgnoreCase(tipoAlojamiento)) {
                 resultados.add(hotel);
             }
         }
@@ -35,7 +35,7 @@ public class ServicioBusqueda {
 
     private Room obtenerHabitacionMasBarataPorHotel (Hotel hotel){
         Room roomMasBarata = null;
-        for (Room room : hotel.getHabitaciones()) {
+        for (Room room : hotel.getRoomTypes()) {
             if (room.getAvailability() > 0) {
                 roomMasBarata = filtrarPorHabitaciones(room, roomMasBarata);
             }
@@ -60,16 +60,16 @@ public class ServicioBusqueda {
 
             imprimirInformacionDelHotel(hotel, precioHabitacion, precioFinalConDescuento);
         } else {
-            System.out.println("El hotel " + hotel.getNombre() + " no tiene habitaciones disponibles para las fechas solicitadas.");
+            System.out.println("El hotel " + hotel.getHotelName() + " no tiene habitaciones disponibles para las fechas solicitadas.");
             System.out.println("-----------------------------------------");
         }
     }
 
     private void imprimirInformacionDelHotel(Hotel hotel, double precioHabitacion, double precioFinalConDescuento) {
-        System.out.println("Nombre del establecimiento: " + hotel.getNombre());
-        System.out.println("Tipo de alojamiento: " + hotel.getTipoAlojamiento());
-        System.out.println("Ciudad del establecimiento: " + hotel.getCiudad());
-        System.out.println("Puntuación: " + hotel.getPuntuacion());
+        System.out.println("Nombre del establecimiento: " + hotel.getHotelName());
+        System.out.println("Tipo de alojamiento: " + hotel.getAccommodationType());
+        System.out.println("Ciudad del establecimiento: " + hotel.getCity());
+        System.out.println("Puntuación: " + hotel.getHotelScore());
         System.out.println("Precio por habitación: $" + String.format("%.2f", precioHabitacion));
         System.out.println("Precio total de la estadía: $" + String.format("%.2f", precioFinalConDescuento));
         System.out.println("-----------------------------------------");
@@ -140,9 +140,9 @@ public class ServicioBusqueda {
         List<Room> resultadosHabitaciones = new ArrayList<>();
         double precioFinalConDescuento;
 
-        System.out.println("Estas son las habitaciones disponibles en el hotel " + hotel.getNombre());
+        System.out.println("Estas son las habitaciones disponibles en el hotel " + hotel.getHotelName());
 
-        for (Room room : hotel.getHabitaciones()) {
+        for (Room room : hotel.getRoomTypes()) {
             resultadosHabitaciones.add(room);
 
             precioFinalConDescuento = obtenerPrecioPorFecha(room.getPrice(), fechaInicioAlojamiento, fechaFinalAlojamiento, numeroDeHabitacionesAReservar);

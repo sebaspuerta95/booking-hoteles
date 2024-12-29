@@ -39,9 +39,9 @@ public class BaseDeDatos {
 
     private void asignarHabitaciones(Hotel hotel, String tipoAlojamiento, int index) {
         if (tipoAlojamiento.equalsIgnoreCase("Día de Sol")) {
-            hotel.setHabitaciones(obtenerHabitacionesDiaDeSol());
+            hotel.setRoomTypes(obtenerHabitacionesDiaDeSol());
         } else {
-            hotel.setHabitaciones(obtenerHabitacionesGenerales(index));
+            hotel.setRoomTypes(obtenerHabitacionesGenerales(index));
         }
     }
 

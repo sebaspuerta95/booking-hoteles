@@ -67,7 +67,7 @@ public class Main {
         List<Room> habitacionesSeleccionadas = new ArrayList<>();
         habitacionesSeleccionadas.add(roomSeleccionada);
 
-        hotelSeleccionado.generarReserva(client, habitacionesSeleccionadas, fechaInicio, fechaFinal, horaAproxLlegada );
+        hotelSeleccionado.generateReservation(client, habitacionesSeleccionadas, fechaInicio, fechaFinal, horaAproxLlegada );
         System.out.println("Reserva realizada con éxito.");
     }
 
@@ -80,6 +80,6 @@ public class Main {
             return;
         }
 
-        hotelSeleccionado.actualizarReserva(email, fechaNacimiento);
+        hotelSeleccionado.updateReservation(email, fechaNacimiento);
     }
 }
