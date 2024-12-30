@@ -9,6 +9,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class HotelQueryService {
+    private static HotelQueryService hqsUniqueInstance;
+
+    private HotelQueryService (){}
+
+    public static HotelQueryService getInstance(){
+        if (hqsUniqueInstance == null) {
+            hqsUniqueInstance = new HotelQueryService();
+        }
+        return hqsUniqueInstance;
+    }
+
 
     public List<Hotel> searchHotelsPerCriteria(List<Hotel> hotelsList, String desiredCity, String desiredAccommodationType, String startDate, String endDate, int adultsNumber, int childrenNumber, int desiredNumberOfRoomsToBook) {
         List<Hotel> hotelsListResult = filterHotelsByCriteria(hotelsList, desiredCity, desiredAccommodationType);
