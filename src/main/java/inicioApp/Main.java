@@ -11,7 +11,8 @@ import java.util.List;
 public class Main {
 
     private static final HotelQueryService hotelQueryService = new HotelQueryService();
-    private static final List<Hotel> hotelsList = Database.getInstance().getHotelsList();
+    private static List<Hotel> hotelsList = Database.getInstance().getHotelsList();
+    private static final UserInteractionService userInteractionService = UserInteractionService.getInstance();
     private static Hotel selectedHotel;
 
     public static void main(String[] args) {
@@ -19,7 +20,7 @@ public class Main {
 
         System.out.println("Bienvenido a Booking Hoteles!");
         while (!exitFromSystem) {
-            int option = UserInteractionService.askMenuOption("""
+            int option = userInteractionService.askMenuOption("""
                     \nSeleccione una opción:
                     1. Buscar hoteles y reservar
                     2. Actualizar reservation
@@ -38,13 +39,13 @@ public class Main {
     }
 
     private static void searchAndBookHotel() {
-        String desiredCity = UserInteractionService.requestStringToUser("Ingrese la ciudad donde desea alojarse: ");
-        String desiredAccommodationType = UserInteractionService.requestStringToUser("Ingrese el tipo de alojamiento (Hotel, Apartamento, Finca o Día de Sol): ");
-        String startDate = UserInteractionService.requestStringToUser("Ingrese la fecha de inicio de su estadía (yyyy-MM-dd): ");
-        String endDate = UserInteractionService.requestStringToUser("Ingrese la fecha final de su estadía (yyyy-MM-dd): ");
-        int adultsNumber = UserInteractionService.requestIntegerToUser("Ingrese la cantidad de adultos: ");
-        int childrenNumber = UserInteractionService.requestIntegerToUser("Ingrese la cantidad de niños: ");
-        int desiredNumberOfRoomsToBook = UserInteractionService.requestIntegerToUser("Ingrese la cantidad de habitaciones: ");
+        String desiredCity = userInteractionService.requestStringToUser("Ingrese la ciudad donde desea alojarse: ");
+        String desiredAccommodationType = userInteractionService.requestStringToUser("Ingrese el tipo de alojamiento (Hotel, Apartamento, Finca o Día de Sol): ");
+        String startDate = userInteractionService.requestStringToUser("Ingrese la fecha de inicio de su estadía (yyyy-MM-dd): ");
+        String endDate = userInteractionService.requestStringToUser("Ingrese la fecha final de su estadía (yyyy-MM-dd): ");
+        int adultsNumber = userInteractionService.requestIntegerToUser("Ingrese la cantidad de adultos: ");
+        int childrenNumber = userInteractionService.requestIntegerToUser("Ingrese la cantidad de niños: ");
+        int desiredNumberOfRoomsToBook = userInteractionService.requestIntegerToUser("Ingrese la cantidad de habitaciones: ");
 
         List<Hotel> availableHotels = hotelQueryService.searchHotelsPerCriteria(hotelsList, desiredCity, desiredAccommodationType, startDate, endDate, adultsNumber, childrenNumber, desiredNumberOfRoomsToBook);
 
@@ -53,7 +54,7 @@ public class Main {
             return;
         }
 
-        selectedHotel = UserInteractionService.selectHotelToBook("Seleccione el número del hotel que desea reservar:", availableHotels);
+        selectedHotel = userInteractionService.selectHotelToBook("Seleccione el número del hotel que desea reservar:", availableHotels);
         List<Room> availableRooms = hotelQueryService.confirmAvailableRooms(selectedHotel, startDate, endDate, adultsNumber, childrenNumber, desiredNumberOfRoomsToBook);
 
         if (availableRooms.isEmpty()) {
@@ -61,10 +62,10 @@ public class Main {
             return;
         }
 
-        Room selectedRoom = UserInteractionService.selectRoomToBook("Seleccione el número de la habitación que desea reservar:", availableRooms);
+        Room selectedRoom = userInteractionService.selectRoomToBook("Seleccione el número de la habitación que desea reservar:", availableRooms);
 
-        Client client = UserInteractionService.requestClientsInformation();
-        String estimatedTimeOfArrival  = UserInteractionService.requestStringToUser("Hora aproximada de llegada: ");
+        Client client = userInteractionService.requestClientsInformation();
+        String estimatedTimeOfArrival  = userInteractionService.requestStringToUser("Hora aproximada de llegada: ");
 
         List<Room> habitacionesSeleccionadas = new ArrayList<>();
         habitacionesSeleccionadas.add(selectedRoom);
@@ -74,8 +75,8 @@ public class Main {
     }
 
     private static void updateExistingReservation() {
-        String email = UserInteractionService.requestStringToUser("Para actualizar tu reservation actual, primero debemos validar tu identidad. \nIngresa tu email: ");
-        String dateOfBirth = UserInteractionService.requestStringToUser("Ingrese su fecha de nacimiento (yyyy-MM-dd): ");
+        String email = userInteractionService.requestStringToUser("Para actualizar tu reservation actual, primero debemos validar tu identidad. \nIngresa tu email: ");
+        String dateOfBirth = userInteractionService.requestStringToUser("Ingrese su fecha de nacimiento (yyyy-MM-dd): ");
 
         if (selectedHotel == null) {
             System.out.println("No hay reservas realizadas aún.");

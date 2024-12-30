@@ -4,31 +4,27 @@ import src.main.java.clases.Client;
 import src.main.java.clases.Hotel;
 import src.main.java.clases.Room;
 
-import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
 
 public class UserInteractionService {
+    private static UserInteractionService uisUniqueInstance;
     private static final Scanner scanner = new Scanner(System.in);
 
-    /**
-     * Prompts the user with a custom message and reads the input string from the console.
-     *
-     * @param message the message to display to the user as a prompt
-     * @return the string input entered by the user
-     */
+    private UserInteractionService(){}
+
+    public static UserInteractionService getInstance(){
+        if (uisUniqueInstance == null) {
+            uisUniqueInstance = new UserInteractionService();
+        }
+        return uisUniqueInstance;
+    }
+
     public static String requestStringToUser(String message) {
         System.out.print(message);
         return scanner.nextLine();
     }
 
-    /**
-     * Prompts the user with a custom message and reads an integer input from the console.
-     *
-     * @param message the message to display to the user as a prompt
-     * @return the integer value entered by the user
-     * @throws InputMismatchException if the user enters a non-integer value
-     */
     public static int requestIntegerToUser(String message) {
         System.out.print(message);
         return scanner.nextInt();
@@ -122,4 +118,3 @@ public class UserInteractionService {
     }
 
 }
-
