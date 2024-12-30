@@ -8,11 +8,19 @@ import java.util.List;
 
 public class Database {
 
+    private static Database dbUniqueInstance;
     private static List<Hotel> hotelsList;
 
-    public Database() {
+    private Database() {
         hotelsList = new ArrayList<>();
         initializeHotels();
+    }
+
+    public static Database getInstance() {
+        if (dbUniqueInstance == null) {
+            dbUniqueInstance = new Database();
+        }
+        return dbUniqueInstance;
     }
 
     private void initializeHotels() {
