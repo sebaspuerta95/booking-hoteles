@@ -16,29 +16,29 @@ public class Main {
     private static Hotel selectedHotel;
 
     public static void main(String[] args) {
-        boolean salir = false;
+        boolean exitFromSystem = false;
 
         System.out.println("Bienvenido a Booking Hoteles!");
-        while (!salir) {
-            int opcion = UserInteractionService.askMenuOption("""
+        while (!exitFromSystem) {
+            int option = UserInteractionService.askMenuOption("""
                     \nSeleccione una opción:
                     1. Buscar hoteles y reservar
                     2. Actualizar reservation
                     3. Salir
                     Ingrese su opción:\s""", 1, 3);
 
-            switch (opcion) {
-                case 1 -> buscarYReservarHotel();
-                case 2 -> actualizarReserva();
+            switch (option) {
+                case 1 -> searchAndBookHotel();
+                case 2 -> updateExistingReservation();
                 case 3 -> {
                     System.out.println("Gracias por usar Booking Hoteles. ¡Hasta pronto!");
-                    salir = true;
+                    exitFromSystem = true;
                 }
             }
         }
     }
 
-    private static void buscarYReservarHotel() {
+    private static void searchAndBookHotel() {
         String desiredCity = UserInteractionService.requestStringToUser("Ingrese la ciudad donde desea alojarse: ");
         String desiredAccommodationType = UserInteractionService.requestStringToUser("Ingrese el tipo de alojamiento (Hotel, Apartamento, Finca o Día de Sol): ");
         String startDate = UserInteractionService.requestStringToUser("Ingrese la fecha de inicio de su estadía (yyyy-MM-dd): ");
@@ -62,27 +62,27 @@ public class Main {
             return;
         }
 
-        Room roomSeleccionada = UserInteractionService.selectRoomToBook("Seleccione el número de la habitación que desea reservar:", availableRooms);
+        Room selectedRoom = UserInteractionService.selectRoomToBook("Seleccione el número de la habitación que desea reservar:", availableRooms);
 
         Client client = UserInteractionService.requestClientsInformation();
-        String horaAproxLlegada  = UserInteractionService.requestStringToUser("Hora aproximada de llegada: ");
+        String estimatedTimeOfArrival  = UserInteractionService.requestStringToUser("Hora aproximada de llegada: ");
 
         List<Room> habitacionesSeleccionadas = new ArrayList<>();
-        habitacionesSeleccionadas.add(roomSeleccionada);
+        habitacionesSeleccionadas.add(selectedRoom);
 
-        selectedHotel.generateReservation(client, habitacionesSeleccionadas, startDate, endDate, horaAproxLlegada );
+        selectedHotel.generateReservation(client, habitacionesSeleccionadas, startDate, endDate, estimatedTimeOfArrival );
         System.out.println("Reserva realizada con éxito.");
     }
 
-    private static void actualizarReserva() {
+    private static void updateExistingReservation() {
         String email = UserInteractionService.requestStringToUser("Para actualizar tu reservation actual, primero debemos validar tu identidad. \nIngresa tu email: ");
-        String fechaNacimiento = UserInteractionService.requestStringToUser("Ingrese su fecha de nacimiento (yyyy-MM-dd): ");
+        String dateOfBirth = UserInteractionService.requestStringToUser("Ingrese su fecha de nacimiento (yyyy-MM-dd): ");
 
         if (selectedHotel == null) {
             System.out.println("No hay reservas realizadas aún.");
             return;
         }
 
-        selectedHotel.updateReservation(email, fechaNacimiento);
+        selectedHotel.updateReservation(email, dateOfBirth);
     }
 }
