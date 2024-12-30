@@ -11,8 +11,7 @@ import java.util.List;
 public class Main {
 
     private static final HotelQueryService hotelQueryService = new HotelQueryService();
-    private static final Database DATABASE = Database.getInstance();
-    private static final List<Hotel> hotelsList = DATABASE.getHotelsList();
+    private static final List<Hotel> hotelsList = Database.getInstance().getHotelsList();
     private static Hotel selectedHotel;
 
     public static void main(String[] args) {
