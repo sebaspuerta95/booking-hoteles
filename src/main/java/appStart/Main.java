@@ -1,6 +1,6 @@
-package src.main.java.inicioApp;
+package src.main.java.appStart;
 
-import src.main.java.clases.*;
+import src.main.java.classes.*;
 import src.main.java.utils.Database;
 import src.main.java.utils.HotelQueryService;
 import src.main.java.utils.UserInteractionService;

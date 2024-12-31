@@ -1,8 +1,8 @@
 package src.main.java.utils;
 
-import src.main.java.clases.Client;
-import src.main.java.clases.Hotel;
-import src.main.java.clases.Room;
+import src.main.java.classes.Client;
+import src.main.java.classes.Hotel;
+import src.main.java.classes.Room;
 
 import java.util.List;
 import java.util.Scanner;
