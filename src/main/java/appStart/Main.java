@@ -1,16 +1,12 @@
 package src.main.java.appStart;
 
-import src.main.java.classes.*;
 import src.main.java.utils.*;
-
-import java.util.ArrayList;
-import java.util.List;
 
 public class Main {
 
     private static final UserInteractionService userInteractionService = UserInteractionService.getInstance();
-    private static CreateReservation createReservation = new CreateReservation(); // NUEVO
-    private static UpdateReservation updateReservation = new UpdateReservation(); // NUEVO
+    private static CreateReservation createReservation = new CreateReservation();
+    private static UpdateReservation updateReservation = new UpdateReservation();
 
     public static void main(String[] args) {
         try {
