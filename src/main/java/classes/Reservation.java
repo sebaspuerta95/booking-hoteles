@@ -45,4 +45,9 @@ public class Reservation {
                     + "Precio: $" + String.format("%.2f", bookedRooms.get(i).getPrice()));
         }
     }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
 }
