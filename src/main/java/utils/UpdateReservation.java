@@ -3,6 +3,10 @@ package src.main.java.utils;
 import src.main.java.classes.Hotel;
 import src.main.java.classes.Reservation;
 import src.main.java.classes.Room;
+import src.main.java.utils.chainOfResponsibility.DateOfBirthHandler;
+import src.main.java.utils.chainOfResponsibility.EmailHandler;
+import src.main.java.utils.chainOfResponsibility.Request;
+import src.main.java.utils.chainOfResponsibility.ValidationHandler;
 
 import java.util.List;
 import java.util.Scanner;
@@ -62,18 +66,22 @@ public class UpdateReservation extends ReservationProcess{
     }
 
     private Reservation validateClientsIdentity(String email, String dateOfBirth) {
+        ValidationHandler emailHandler = new EmailHandler();
+        ValidationHandler dateOfBirthHandler = new DateOfBirthHandler();
+
+        emailHandler.setNextHandler(dateOfBirthHandler);
+
+        Request request = new Request(email, dateOfBirth);
+
         for (Hotel hotel : hotelsList) {
-            for (Reservation r : hotel.getReservations()) {
-                if (matchesWithReservation(r, email, dateOfBirth)) {
-                    return r;
+            for (Reservation reservation : hotel.getReservations()) {
+                Reservation validatedReservation = emailHandler.handle(request, reservation);
+                if (validatedReservation != null) {
+                    return validatedReservation;
                 }
             }
         }
         return null;
-    }
-
-    private boolean matchesWithReservation(Reservation r, String email, String dateOfBirth) {
-        return r.getClient().getEmail().equalsIgnoreCase(email) && r.getClient().getDateOfBirth().equals(dateOfBirth);
     }
 
     private void isReservationNull(Reservation reservation) {
