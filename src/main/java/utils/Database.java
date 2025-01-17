@@ -6,6 +6,7 @@ import src.main.java.classes.Room;
 import java.util.ArrayList;
 import java.util.List;
 
+// Singleton pattern implementation.
 public class Database {
 
     private static Database dbUniqueInstance;

@@ -2,6 +2,7 @@ package src.main.java.utils.chainOfResponsibility;
 
 import src.main.java.classes.Reservation;
 
+// Chain of responsibility implementation.
 public abstract class ValidationHandler {
     private ValidationHandler nextHandler;
 

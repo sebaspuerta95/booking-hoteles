@@ -1,5 +1,6 @@
 package src.main.java.utils;
 
+// Template method implementation.
 public abstract class ReservationProcess {
 
     public final void processReservation() {
